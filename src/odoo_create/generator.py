@@ -1,7 +1,7 @@
 from pathlib import Path
 from template_engine import render_template
 
-folders = [
+FOLDERS = [
     "models",
     "views",
     "security",
@@ -9,11 +9,10 @@ folders = [
     "demo"
 ]
 
-init_folders = [
+INIT_FOLDERS = [
     "models",
     "controllers"
 ]
-
 
 def create_module_directory(module_path:Path) -> Path | None:
     if module_path.exists():
@@ -27,11 +26,11 @@ def create_root_files(module_path:Path,module_name:str):
     render_template("__init__.py.j2", module_path / "__init__.py")
 
 def create_folders(module_path:Path):
-    for folder in folders:
+    for folder in FOLDERS:
         (module_path / folder).mkdir()
 
 def create_init_files(module_path:Path):
-    for folder in init_folders:
+    for folder in INIT_FOLDERS:
         init_file = module_path / folder / "__init__.py"
         init_file.touch() 
 
