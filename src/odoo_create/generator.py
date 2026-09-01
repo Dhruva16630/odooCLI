@@ -1,4 +1,5 @@
 from pathlib import Path
+from template_engine import render_template
 
 folders = [
     "models",
@@ -22,16 +23,8 @@ def create_module_directory(module_path:Path) -> Path | None:
     return module_path
 
 def create_root_files(module_path:Path,module_name:str):
-    init_file = module_path / "__init__.py"
-    manifest_file = module_path / "__manifest__.py"
-    
-    init_file.touch()
-    manifest_file.write_text(
-        f"""{{
-    "name":"{module_name}"
-}}
-"""
-)
+    render_template("__manifest__.py.j2",module_path / "__manifest__.py",module_name = module_name,)
+    render_template("__init__.py.j2", module_path / "__init__.py")
 
 def create_folders(module_path:Path):
     for folder in folders:
